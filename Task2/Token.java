@@ -4,14 +4,14 @@ private class Token
 	public IntObj OperandA;
 	public Int OperandB;
 
-	public Token(Method InCode, IntObj Inop) 
+	public Token(String InCode, IntObj Inop) 
 	{
 		opcode = InCode;
 		operandA = Inop;
 		operandB = 0;
 	}
 
-	public Token(Method InCode, IntObj InopA, int InopB) 
+	public Token(String InCode, IntObj InopA, int InopB) 
 	{
 		opcode = InCode;
 		operandA = InopA;

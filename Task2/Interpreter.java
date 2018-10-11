@@ -5,9 +5,11 @@ private class Interpreter
 	private List<String> operationsList;
 	private Stack<Token> temporaryState;
 	private List<Token> tokenStream;
+	private Map<String, IntObj> VariableDict;
 
 	public Interpreter(List<Token> InputTokens) 
 	{
+		VariableDict = new Map<String, IntObj>();
 		state = new Stack<Token>();
 		operationsList = new List<String>();
 		tokenStream = InputTokens;
@@ -37,7 +39,7 @@ private class Interpreter
 		}
 	}
 
-	private void ExecuteToken(Token input)
+	private void ExecuteToken(Token input) // Need to implement function pointers for this task
 	{
 		if (input.opcode == "clear") {
 			Operations.clear(Token.OperandA);
