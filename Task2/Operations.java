@@ -1,4 +1,4 @@
-private class Operations 
+public class Operations 
 {
 	public static int clear(int Pointer) 
 	{

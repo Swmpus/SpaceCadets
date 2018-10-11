@@ -1,45 +1,47 @@
 import java.util.Stack;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ArrayList;
 
-private class Interpreter 
+public class Interpreter 
 {
-	private List<String> operationsList;
-	private List<Token> tokenStream;
-	private Map<String, int> variableDict;
+	private ArrayList<String> operationsList;
+	private ArrayList<Token> tokenStream;
+	private HashMap<String, Integer> variableDict;
 
 	public Interpreter() 
 	{
-		tokenStream = new List<Token>();
-		variableDict = new Map<String, IntObj>();
-		operationsList = new List<String>();
+		tokenStream = new ArrayList<Token>();
+		variableDict = new HashMap<String, Integer>();
+		operationsList = new ArrayList<String>();
 
 		operationsList.add("clear");
 		operationsList.add("incr");
 		operationsList.add("decr");
 	}
 
-	public void Run(List<Token> InputTokens) 
+	public void Run(ArrayList<Token> InputTokens) 
 	{
 		tokenStream = InputTokens;
 		int streamPointer = 0;
 
 		while (streamPointer < tokenStream.size()) {
 
-			if (operationsList.contains(tokenStream[streamPointer].opcode)) {
-				ExecuteToken(tokenStream[streamPointer]);
+			if (operationsList.contains(tokenStream.get(streamPointer).Opcode)) {
+				ExecuteToken(tokenStream.get(streamPointer));
 				streamPointer += 1;
-			} else if (tokenStream[streamPointer].opcode == "end") {
+			} else if (tokenStream.get(streamPointer).Opcode == "end") {
 
-				while (tokenStream[streamPointer].opcode != "not") {
+				while (tokenStream.get(streamPointer).Opcode != "not") {
 					streamPointer -= 1;
 				}
-			}  else if (tokenStream[streamPointer].opcode == "not") {
+			}  else if (tokenStream.get(streamPointer).Opcode == "not") {
 
-				if (Operations.not(variableDict.get(Token.OperandA), Token.OperandB)) {
+				if (Operations.not(variableDict.get(tokenStream.get(streamPointer).OperandA), tokenStream.get(streamPointer).OperandB)) {
 					streamPointer += 1;
 				} else {
 
-					while (tokenStream[streamPointer].opcode != "end") {
+					while (tokenStream.get(streamPointer).Opcode != "end") {
 						streamPointer += 1;
 					}
 					streamPointer += 1;
@@ -50,14 +52,12 @@ private class Interpreter
 
 	private void ExecuteToken(Token input) // Need to implement function pointers for this task
 	{
-		if (input.opcode == "clear" && variableDict.containsKey(Token.OperandA)) {
-			Operations.clear(variableDict.get(Token.OperandA));
-		} else if (input.opcode == "clear" && !variableDict.containsKey(Token.OperandA)) {
-			variableDict.put(Token.OperandA, new IntObj(0));
-		} else if (input.opcode == "incr") {
-			Operations.incr(variableDict.get(Token.OperandA), Token.OperandB);
-		} else if (input.opcode == "decr") {
-			Operations.decr(variableDict.get(Token.OperandA), Token.OperandB);
+		if (input.Opcode == "clear") {
+			variableDict.put(input.OperandA, 0);
+		} else if (input.Opcode == "incr") {
+			variableDict.put(input.OperandA, Operations.incr(variableDict.get(input.OperandA), input.OperandB));
+		} else if (input.Opcode == "decr") {
+			variableDict.put(input.OperandA, Operations.decr(variableDict.get(input.OperandA), input.OperandB));
 		}
 	}
 }
