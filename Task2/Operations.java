@@ -1,21 +1,21 @@
 private class Operations 
 {
-	public static void clear(IntObj Pointer) 
+	public static int clear(int Pointer) 
 	{
-		Pointer = 0;
+		return 0;
 	}
 
-	public static void incr(IntObj Pointer, int Value) 
+	public static int incr(int Pointer, int Value) 
 	{
-		Pointer += Value;
+		return Pointer + Value;
 	}
 
-	public static void decr(IntObj Pointer, int Value) 
+	public static int decr(int Pointer, int Value) 
 	{
-		Pointer -= Value;
+		return Pointer - Value;
 	}
 
-	public static boolean not(IntObj Pointer, int Value) 
+	public static boolean not(int Pointer, int Value) 
 	{
 		return Pointer != Value;
 	}

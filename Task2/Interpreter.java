@@ -5,7 +5,7 @@ private class Interpreter
 {
 	private List<String> operationsList;
 	private List<Token> tokenStream;
-	private Map<String, IntObj> variableDict;
+	private Map<String, int> variableDict;
 
 	public Interpreter() 
 	{
