@@ -1,20 +1,27 @@
-private class Token 
+public class Token 
 {
 	public String Opcode;
-	public IntObj OperandA;
-	public Int OperandB;
+	public String OperandA;
+	public int OperandB;
 
-	public Token(String InCode, IntObj Inop) 
+	public Token(String InCode) 
 	{
-		opcode = InCode;
-		operandA = Inop;
-		operandB = 0;
+		Opcode = InCode;
+		OperandA = "";
+		OperandB = 0;
 	}
 
-	public Token(String InCode, IntObj InopA, int InopB) 
+	public Token(String InCode, String Inop) 
 	{
-		opcode = InCode;
-		operandA = InopA;
-		operandA = InopB;
+		Opcode = InCode;
+		OperandA = Inop;
+		OperandB = 0;
+	}
+
+	public Token(String InCode, String InopA, int InopB) 
+	{
+		Opcode = InCode;
+		OperandA = InopA;
+		OperandB = InopB;
 	}
 }

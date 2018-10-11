@@ -1,23 +1,27 @@
-import java.util.List;
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class TextFileHelper 
 {
-	public static List<String> GetLines(String FilePath) 
+	public static ArrayList<String> GetLines(String FilePath) throws IOException, FileNotFoundException
 	{
-		List<String> output = new List<String>();
+		ArrayList<String> output = new ArrayList<String>();
 		String tempLine;
-		BufferedReader Br = new BufferedReader(new FileInputStream(FilePath));
+		BufferedReader Br = new BufferedReader(new FileReader(FilePath));
 
 		while ((tempLine = Br.readLine()) != null) {
-			output.Add(eatIndents(tempLine));
+			output.add(eatIndents(tempLine));
 		}
 		return output;
 	}
 
 	private static String eatIndents(String inputLine) 
 	{
-		while (inputLine[0] == ' ') {
-			inputLine.subString(1, inputLine.length());
+		while (inputLine.charAt(0) == ' ') {
+			inputLine = inputLine.substring(1, inputLine.length());
 		}
 		return inputLine;
 	}
