@@ -1,0 +1,18 @@
+----------1----------
+Pawel decrees x is 0
+Pawel decrees y is 0
+Pawel decrees a is 2
+Pawel decrees b is 14
+
+Pawel dictates to the class, let y be a + b
+Pawel dictates to the class, let x be a * b
+
+Pawel writes q on the board
+----------2----------(twiddles = *)
+x e {0}
+y e {0}
+a e {2}
+b e {14}
+
+y -> a 
+x -> a twiddles b
