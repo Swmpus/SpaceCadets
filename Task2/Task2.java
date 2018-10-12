@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.io.IOException;
+import java.io.File;
 
 public class Task2
 {
@@ -7,7 +8,9 @@ public class Task2
 	{
 		Interpreter II = new Interpreter();
 
-		ArrayList<Token> Tokens = Tokenizer.TokenizeFile(TextFileHelper.GetLines("C:/Users/Morgan/Desktop/Programming Projects/JavaStuff/SpaceCadets/Task2/TestTwo.txt")); // This should be dynamic
+		File currentDirectory = new File(new File(".").getAbsolutePath());
+
+		ArrayList<Token> Tokens = Tokenizer.TokenizeFile(TextFileHelper.GetLines(currentDirectory.getCanonicalPath() + "/TestThree.txt")); // This should be dynamic
 		
 		II.Run(Tokens);
 	}
