@@ -17,6 +17,6 @@ public class Operations
 
 	public static boolean not(int Pointer, int Value) 
 	{
-		return Pointer != Value;
+		return !(Pointer == Value);
 	}
 }

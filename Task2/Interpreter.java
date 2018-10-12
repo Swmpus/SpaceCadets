@@ -31,8 +31,9 @@ public class Interpreter
 				ExecuteToken(tokenStream.get(streamPointer));
 				streamPointer += 1;
 			} else if (tokenStream.get(streamPointer).Opcode == "end") {
+				int TempScope = tokenStream.get(streamPointer).Scope;
 
-				while (tokenStream.get(streamPointer).Opcode != "not") {
+				while (!(tokenStream.get(streamPointer).Opcode == "not" && tokenStream.get(streamPointer).Scope == TempScope)) {
 					streamPointer -= 1;
 				}
 			}  else if (tokenStream.get(streamPointer).Opcode == "not") {
@@ -40,8 +41,8 @@ public class Interpreter
 				if (Operations.not(variableDict.get(tokenStream.get(streamPointer).OperandA), tokenStream.get(streamPointer).OperandB)) {
 					streamPointer += 1;
 				} else {
-
-					while (tokenStream.get(streamPointer).Opcode != "end") {
+					int TempScope = tokenStream.get(streamPointer).Scope;
+					while (tokenStream.get(streamPointer).Opcode != "end" || TempScope != tokenStream.get(streamPointer).Scope) {
 						streamPointer += 1;
 					}
 					streamPointer += 1;
@@ -59,5 +60,10 @@ public class Interpreter
 		} else if (input.Opcode == "decr") {
 			variableDict.put(input.OperandA, Operations.decr(variableDict.get(input.OperandA), input.OperandB));
 		}
+		System.out.println("W: " + variableDict.get("W"));
+		System.out.println("X: " + variableDict.get("X"));
+		System.out.println("Y: " + variableDict.get("Y"));
+		System.out.println("Z: " + variableDict.get("Z"));
+		System.out.println("----");
 	}
 }
