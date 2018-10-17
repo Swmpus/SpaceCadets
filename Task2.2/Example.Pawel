@@ -14,5 +14,5 @@ y e {0}
 a e {2}
 b e {14}
 
-y -> a 
-x -> a twiddles b
+f:x -> b
+f:y -> a twiddles b

@@ -13,7 +13,9 @@ public class TextFileHelper
 		BufferedReader Br = new BufferedReader(new FileReader(FilePath));
 
 		while ((tempLine = Br.readLine()) != null) {
-			output.add(eatIndents(tempLine));
+			if (tempLine.length() != 0) {
+				output.add(eatIndents(tempLine));		
+			}
 		}
 		return output;
 	}

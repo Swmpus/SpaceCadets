@@ -10,6 +10,9 @@ public class Tokenizer
 		int ScopeCount = 0;
 
 		for (int i = 0; i < InputLines.size(); i++) {
+			if (InputLines.get(i) == "") {
+				continue;
+			}
 			output.add(TokenizeLine(InputLines.get(i), ScopeCount));
 
 			if (output.get(output.size() - 1).Opcode == "not") {
@@ -23,7 +26,6 @@ public class Tokenizer
 
 	private static Token TokenizeLine(String Line, int Scope) 
 	{
-		//System.out.println(Line);
 		Pattern incrReg = Pattern.compile("incr\\s[a-zA-Z]+[a-zA-Z0-9]*\\s?[0-9]*;");
 		Pattern decrReg = Pattern.compile("decr\\s[a-zA-Z]+[a-zA-Z0-9]*\\s?[0-9]*;");
 		Pattern clearReg = Pattern.compile("clear\\s[a-zA-Z]+[a-zA-Z0-9]*;");
@@ -39,17 +41,15 @@ public class Tokenizer
 		Matcher endMatch = endReg.matcher(Line);
 
 		if (incrMatch.matches()) {
-			//System.out.println(Scope);
 			Line = Line.substring(5, Line.length() - 1);
 			String[] parts = Line.split(" ");
 
-			if (parts.length == 1) {
+			if (parts.length == 1) {	
 				return new Token("incr", parts[0], 1);
 			} else {
 				return new Token("incr", parts[0], Integer.parseInt(parts[1]));
 			}
 		} else if (decrMatch.matches()) {
-			//System.out.println(Scope);
 			Line = Line.substring(5, Line.length() - 1);
 			String[] parts = Line.split(" ");
 
@@ -59,22 +59,19 @@ public class Tokenizer
 				return new Token("decr", parts[0], Integer.parseInt(parts[1]));
 			}
 		} else if (clearMatch.matches()) {
-			//System.out.println(Scope);
 			Line = Line.substring(6, Line.length() - 1);
 
 			return new Token("clear", Line);
 		} else if (whiledoMatch.matches()) {
-			//System.out.println(Scope + 1);
 			Line = Line.substring(6, Line.length() - 4);
 			String[] parts = Line.split(" not ");
 
 			return new Token("not", parts[0], Integer.parseInt(parts[1]), Scope + 1);
 		} else if (endMatch.matches()) {
-			//System.out.println(Scope);
 			return new Token("end", Scope);
 		} else {
+			System.out.println(Line);
 			return null;
-			//throw new Exception("Bad Syntax");
 		}
 	}
 }

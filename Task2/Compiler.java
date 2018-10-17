@@ -3,14 +3,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-public class Interpreter 
+public class Compiler 
 {
 	private ArrayList<String> operationsList;
 	private ArrayList<Token> tokenStream;
 	private HashMap<String, Integer> variableDict;
+	private Boolean debug;
 
-	public Interpreter() 
+	public Compiler(Boolean inputDebug) 
 	{
+		debug = inputDebug;
 		tokenStream = new ArrayList<Token>();
 		variableDict = new HashMap<String, Integer>();
 		operationsList = new ArrayList<String>();
@@ -60,10 +62,15 @@ public class Interpreter
 		} else if (input.Opcode == "decr") {
 			variableDict.put(input.OperandA, Operations.decr(variableDict.get(input.OperandA), input.OperandB));
 		}
-		System.out.println("W: " + variableDict.get("W"));
-		System.out.println("X: " + variableDict.get("X"));
-		System.out.println("Y: " + variableDict.get("Y"));
-		System.out.println("Z: " + variableDict.get("Z"));
-		System.out.println("----");
+		if (debug) {
+			for (int i = 0; i < variableDict.size(); i++) {
+				System.out.println(variableDict.keySet().toArray()[i]);
+			}
+			/*System.out.println("W: " + variableDict.get("W"));
+			System.out.println("X: " + variableDict.get("X"));
+			System.out.println("Y: " + variableDict.get("Y"));
+			System.out.println("Z: " + variableDict.get("Z"));*/
+			System.out.println("----");	
+		}
 	}
 }
