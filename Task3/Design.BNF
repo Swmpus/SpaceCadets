@@ -1,0 +1,17 @@
+<Char> ::= 'a' | 'b' | ... | 'z'
+<Digit> ::= '0' | '1' | ... | '9'
+<MathsOperator> ::= ' + ' | ' - ' | ' / ' | ' * '
+<BoolOperator> ::= ' == ' | ' != '
+
+<Literal> ::= <Digit> | <Digit> <Literal>
+<Var> ::= <Char> | <Char> <Var>
+
+<MathsFunction> ::= <MathsFunction> <MathsOperator> <MathsFunction> | <Var>
+<BoolFunction> ::= <Var> <BoolOperator> <Var> | <Var> <BoolOperator> <Literal>
+<LogicFunction> ::= 'not' <LogicFunction> | <LogicFunction> 'and' <LogicFunction> | <LogicFunction> 'or' <LogicFunction> | <BoolFunction>
+
+<Control> ::= 'end' | 'while' <LogicFunction> | 'if' <LogicFunction>
+<Assignment> ::= <Var> ' = ' <MathsFunction>
+
+<Line> ::= <Assignment> | <Control>
+<Program> ::=
