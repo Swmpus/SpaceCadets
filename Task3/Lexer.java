@@ -55,7 +55,8 @@ class Lexer
 		} else {
 			String[] parts = line.split(" = ");
 
-			output.add(new Token("Assignment", parts[0], scope));
+			output.add(new Token("Assignment", "=", scope));
+			output.add(new Token("Var", parts[0], scope));
 			output.addAll(convertMathsFunction(parts[1], scope));
 		}
 		return output;
@@ -67,7 +68,9 @@ class Lexer
 
 		if (line.substring(0, 3).equals("not")) {
 			output.add(new Token("LogicFunction", "not", scope));
+			output.add(new Token("Temporary", "(", scope));
 			output.addAll(convertLogicFunction(line.substring(5, line.length() - 1), scope));
+			output.add(new Token("Temporary", ")", scope));
 		} else {
 			int pointer = getPointerToBracketBreak(line);
 
@@ -77,14 +80,22 @@ class Lexer
 				output.add(new Token("LogicFunction", "and", scope));
 
 				String[] parts = line.split(" and ");
+				output.add(new Token("Temporary", "(", scope));
 				output.addAll(convertLogicFunction(parts[0].substring(1, parts[0].length() - 1), scope));
-				output.addAll(convertLogicFunction(parts[0].substring(1, parts[0].length() - 1), scope));
+				output.add(new Token("Temporary", ")", scope));
+				output.add(new Token("Temporary", "(", scope));
+				output.addAll(convertLogicFunction(parts[1].substring(1, parts[1].length() - 1), scope));
+				output.add(new Token("Temporary", ")", scope));
 			} else {
 				output.add(new Token("LogicFunction", "or", scope));
 
 				String[] parts = line.split(" or ");
+				output.add(new Token("Temporary", "(", scope));
 				output.addAll(convertLogicFunction(parts[0].substring(1, parts[0].length() - 1), scope));
-				output.addAll(convertLogicFunction(parts[0].substring(1, parts[0].length() - 1), scope));
+				output.add(new Token("Temporary", ")", scope));
+				output.add(new Token("Temporary", "(", scope));
+				output.addAll(convertLogicFunction(parts[1].substring(1, parts[1].length() - 1), scope));
+				output.add(new Token("Temporary", ")", scope));
 			}
 		}
 		return output;
@@ -102,8 +113,12 @@ class Lexer
 			
 			String[] parts = line.split(line.substring(pointer, pointer + 4));
 			
+			output.add(new Token("Temporary", "(", scope));
 			output.add(new Token("Var", parts[0], scope));
+			output.add(new Token("Temporary", ")", scope));
+			output.add(new Token("Temporary", "(", scope));
 			output.add(new Token("Var", parts[1], scope));
+			output.add(new Token("Temporary", ")", scope));
 		}
 		return output;
 	}
@@ -113,6 +128,9 @@ class Lexer
 		ArrayList<Token> output = new ArrayList<Token>();
 		int pointer = getPointerToBracketBreak(line);
 
+		System.out.println(line + " : " + pointer);
+		System.out.println(line.substring(pointer + 1, pointer + 2));
+
 		if (pointer == 1) {
 			output.add(new Token("Var", line, scope));
 		} else {
@@ -120,8 +138,15 @@ class Lexer
 			
 			String[] parts = line.split(line.substring(pointer, pointer + 3));
 			
+			System.out.println(parts[0]);
+			System.out.println(parts[1]);
+
+			output.add(new Token("Temporary", "(", scope));
 			output.addAll(convertMathsFunction(parts[0], scope));
+			output.add(new Token("Temporary", ")", scope));
+			output.add(new Token("Temporary", "(", scope));
 			output.addAll(convertMathsFunction(parts[1], scope));
+			output.add(new Token("Temporary", ")", scope));
 		}
 		return output;
 	}

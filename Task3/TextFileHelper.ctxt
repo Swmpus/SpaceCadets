@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=TextFileHelper
+comment1.params=FilePath
+comment1.target=java.util.ArrayList\ GetLines(java.lang.String)
+comment2.params=inputLine
+comment2.target=java.lang.String\ eatIndents(java.lang.String)
+numComments=3

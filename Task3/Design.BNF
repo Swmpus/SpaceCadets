@@ -14,5 +14,5 @@
 <Control> ::= 'end' | 'while (' <LogicFunction> ')' | 'if (' <LogicFunction> ')' | 'break'
 <Assignment> ::= <Var> ' = ' <MathsFunction>
 
-<Line> ::= <Assignment> ';' | <Control> ';'
+<Line> ::= <Assignment> | <Control>
 <Program> ::= <Line> | <Line> <Program>
