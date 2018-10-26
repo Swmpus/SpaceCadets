@@ -1,1 +1,12 @@
+qor = 2
+qurt = 5
+qort = 3
 qor = (qurt * qort) + (qurt)
+if (((True) or (qurt != qort)) and (qurt == qurt))
+    qor = qor * qurt
+end
+while (True)
+    while ((qor) != (0)
+        qor = qor - 1
+    end
+end
