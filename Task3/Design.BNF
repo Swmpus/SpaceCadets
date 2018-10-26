@@ -4,14 +4,15 @@
 <BoolOperator> ::= ' == ' | ' != '
 
 <Literal> ::= <Digit> | <Digit> <Literal>
+<BoolLiteral> ::= 'True' | 'False'
 <Var> ::= <Char> | <Char> <Var>
 
-<MathsFunction> ::= <MathsFunction> <MathsOperator> <MathsFunction> | <Var>
-<BoolFunction> ::= <Var> <BoolOperator> <Var> | <Var> <BoolOperator> <Literal>
-<LogicFunction> ::= 'not' <LogicFunction> | <LogicFunction> 'and' <LogicFunction> | <LogicFunction> 'or' <LogicFunction> | <BoolFunction>
+<MathsFunction> ::= '(' <MathsFunction> ')' <MathsOperator> '(' <MathsFunction> ')' | <Var>
+<BoolFunction> ::= '(' <Var> ')' <BoolOperator> '(' <Var> ')' | '(' <Var> ')' <BoolOperator> '(' <Literal> ')' | <BoolLiteral>
+<LogicFunction> ::= 'not(' <LogicFunction> ')' | '(' <LogicFunction> ') and (' <LogicFunction> ')' | '(' <LogicFunction> ') or (' <LogicFunction> ')' | <BoolFunction>
 
-<Control> ::= 'end' | 'while' <LogicFunction> | 'if' <LogicFunction>
+<Control> ::= 'end' | 'while (' <LogicFunction> ')' | 'if (' <LogicFunction> ')' | 'break'
 <Assignment> ::= <Var> ' = ' <MathsFunction>
 
-<Line> ::= <Assignment> | <Control>
-<Program> ::=
+<Line> ::= <Assignment> ';' | <Control> ';'
+<Program> ::= <Line> | <Line> <Program>
